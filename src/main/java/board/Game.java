@@ -12,7 +12,15 @@ public class Game {
     private int draw = 0;
     private AI black;
     private AI white;
+    private String whoWonLastGame = "";
 
+    public String getWhoWonLastGame() {
+        return whoWonLastGame;
+    }
+
+    public void setWhoWonLastGame(String whoWonLastGame) {
+        this.whoWonLastGame = whoWonLastGame;
+    }
 
     public Game(AI white, AI black) {
 
@@ -30,10 +38,13 @@ public class Game {
         }
         if(board.getGameStatus().getGameStatus() == 10) {
             draw++;
+            whoWonLastGame = "DRAW";
         } else if(board.getGameStatus().getGameStatus() == 1) {
             whiteWon++;
+            whoWonLastGame = "WHITE";
         } else if(board.getGameStatus().getGameStatus() == -1) {
             blackWon++;
+            whoWonLastGame = "BLACK";
         }
     }
 
