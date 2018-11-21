@@ -8,6 +8,7 @@ import board.Board;
 import board.Game;
 import board.Move;
 import board.SimpleBoard;
+import machinelearning.MapMovePair;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -59,13 +60,12 @@ public class Main {
 
 
 
-        Game game = new Game(new RandomAI(), new MiniMax());
+        Game game = new Game(new RandomAI(), new RandomAI());
         try {
-            game.play(true);
+            game.playManyTimesNoPrint(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
 
 
     }

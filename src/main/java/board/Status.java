@@ -13,11 +13,11 @@ public class Status {
 
     public void setWinner(int gameStatus) {
         if(gameStatus == GAME_STATUS_DRAW) {
-            System.out.println("THE GAME IS A DRAW");
+//            System.out.println("THE GAME IS A DRAW");
         } else if(gameStatus == GAME_STATUS_BLACK_WIN) {
-            System.out.println("BLACK WON");
+//            System.out.println("BLACK WON");
         } else if(gameStatus == GAME_STATUS_WHITE_WIN) {
-            System.out.println("WHITE WON");
+//            System.out.println("WHITE WON");
         }
         this.gameStatus = gameStatus;
     }

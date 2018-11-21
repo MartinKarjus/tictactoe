@@ -5,6 +5,9 @@ import ai.MiniMax;
 import ai.RandomAI;
 
 public class Game {
+    public static final int HEIGHT = 20;
+    public static final int WIDTH = 20;
+    public static final int WIN_COUNT = 6;
     private int sleepTime = 3000;
 
     private int whiteWon = 0;
@@ -13,6 +16,14 @@ public class Game {
     private AI black;
     private AI white;
     private String whoWonLastGame = "";
+
+    public AI getBlack() {
+        return black;
+    }
+
+    public AI getWhite() {
+        return white;
+    }
 
     public String getWhoWonLastGame() {
         return whoWonLastGame;
@@ -29,7 +40,7 @@ public class Game {
     }
 
     public void play(boolean print) throws InterruptedException {
-        Board board = new Board(3, 3, 3);
+        Board board = new Board(HEIGHT, WIDTH, WIN_COUNT);
 
         while (true) {
             if (makeMove(board, white, Board.SQUARE_PLAYER_WHITE, print)) break;
