@@ -1,21 +1,23 @@
 package main;
 
-import ai.AI;
-import ai.Human;
-import ai.MiniMax;
-import ai.RandomAI;
+import ai.*;
 import board.Board;
 import board.Game;
 import board.Move;
 import board.SimpleBoard;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import machinelearning.Learner;
 import machinelearning.MapMovePair;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /*
         Board b = new Board(3, 3, 3);
         b.printBoard();
@@ -57,15 +59,23 @@ public class Main {
         b.printBoard();
         */
 
+        Game game = null;
+        Learner learner = new ObjectMapper().readValue(new File(Learner.PATH), Learner.class);
+        LearnedAI learnedAI =  new LearnedAI(learner);
 
+            game = new Game(new RandomAI(), learnedAI);
 
-
-        Game game = new Game(new RandomAI(), new RandomAI());
         try {
             game.playManyTimesNoPrint(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        /*
+        for (MapMovePair m :
+                learner.getMap().keySet()) {
+            System.out.println(m.toString() + " " + learner.getMap().get(m));
+        }
+        */
 
 
     }

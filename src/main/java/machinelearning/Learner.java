@@ -1,12 +1,20 @@
 package machinelearning;
 
 import ai.LearnedAI;
+import ai.MiniMax;
 import ai.RandomAI;
 import board.Game;
 import board.Move;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import javafx.util.Pair;
 import org.omg.CORBA.DynAnyPackage.InvalidValue;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,8 +22,11 @@ import java.util.List;
 
 public class Learner {
     public static final int GAMES_TO_PLAY = 10000;
+    @JsonDeserialize(keyUsing = MapDeserializer.class)
+    @JsonSerialize(keyUsing = MapSerializer.class)
     private HashMap<MapMovePair, Integer> map = new HashMap<>();
     private static String LEARNER_COLOR = "black";
+    public static final String PATH = "C:\\Users\\Henry\\IdeaProjects\\tictactoeMatrin\\src\\main\\resources\\smart.json";
 
 
     public HashMap<MapMovePair, Integer> getMap() {
@@ -61,9 +72,9 @@ public class Learner {
 
             LearnedAI learner = new LearnedAI(this);
             if(LEARNER_COLOR.equals("white")) {
-                game = new Game(learner, new RandomAI());
+                game = new Game(learner, new MiniMax());
             } else {
-                game = new Game(new RandomAI(), learner);
+                game = new Game(new MiniMax(), learner);
             }
 
             game.play(false);
@@ -101,6 +112,7 @@ public class Learner {
                 draws += 1;
             }
 
+
         }
         /*for (String s : rList) {
             System.out.println(s);
@@ -108,10 +120,20 @@ public class Learner {
         System.out.println("win " + wins);
         System.out.println("losses " + losses);
         System.out.println("draws " + draws);
+        saveToFile();
     }
 
 
     public static void main(String[] args) throws InvalidValue, InterruptedException {
         new Learner().learn();
+    }
+
+    public void saveToFile() {
+        try {
+            new ObjectMapper().writeValue(new File(PATH), this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

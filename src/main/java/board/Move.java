@@ -1,5 +1,9 @@
 package board;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.Arrays;
+
 public class Move {
     private int row;
     private int column;
@@ -35,6 +39,13 @@ public class Move {
         this.column = column;
         this.player = player;
     }
+    public Move(String string) {
+        String[] pairs = string.split(",");
+
+        this.row = Integer.valueOf(pairs[0].trim());
+        this.column = Integer.valueOf(pairs[1].trim());
+        this.player = Integer.valueOf(pairs[2].trim().replace("\"",""));
+    }
     @Override
     public boolean equals(Object o) {
         if (o == this) return true;
@@ -46,7 +57,7 @@ public class Move {
 
         return move.player == player &&
                 move.column == column &&
-                move.row == move.row;
+                move.row == row;
 
     }
     @Override
@@ -56,5 +67,11 @@ public class Move {
         result = 31 * result + column;
         result = 31 * result + player;
         return result;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return row + ", " + column + ", " + player;
     }
 }

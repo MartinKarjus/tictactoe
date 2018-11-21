@@ -5,9 +5,9 @@ import ai.MiniMax;
 import ai.RandomAI;
 
 public class Game {
-    public static final int HEIGHT = 20;
-    public static final int WIDTH = 20;
-    public static final int WIN_COUNT = 6;
+    public static final int HEIGHT = 3;
+    public static final int WIDTH = 3;
+    public static final int WIN_COUNT = 3;
     private int sleepTime = 3000;
 
     private int whiteWon = 0;

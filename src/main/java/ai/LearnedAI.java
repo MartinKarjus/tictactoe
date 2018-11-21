@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 public class LearnedAI implements AI {
+
     private HashMap<int[][], Move> moves = new HashMap<>();
     private Learner learner;
 
