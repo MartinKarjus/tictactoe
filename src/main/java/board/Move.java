@@ -35,4 +35,26 @@ public class Move {
         this.column = column;
         this.player = player;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof Move)) {
+            return false;
+        }
+
+        Move move = (Move) o;
+
+        return move.player == player &&
+                move.column == column &&
+                move.row == move.row;
+
+    }
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + row;
+        result = 31 * result + column;
+        result = 31 * result + player;
+        return result;
+    }
 }
