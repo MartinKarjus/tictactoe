@@ -16,13 +16,15 @@ public class LearnedAI implements AI {
 
     private HashMap<int[][], Move> moves = new HashMap<>();
     private Learner learner;
+    private boolean isLearning;
 
     public HashMap<int[][], Move> getMoves() {
         return moves;
     }
 
-    public LearnedAI(Learner learner) {
+    public LearnedAI(Learner learner, boolean isLearning) {
         this.learner = learner;
+        this.isLearning = isLearning;
     }
 
     private List<Move> getAllPossibleMoves(int[][] board, int player) {
@@ -43,14 +45,16 @@ public class LearnedAI implements AI {
         List<Move> moves = getAllPossibleMoves(board.getBoard(), player);
         int bestMove = -1;
         Move moveToMake = null;
-        for (Move move : moves) {
-            MapMovePair mapMovePair = new MapMovePair(board.getBoard(), move);
-            if(learner.getMap().containsKey(mapMovePair)) {
-                if(learner.getMap().get(mapMovePair) > bestMove) {
-                    moveToMake = move;
-                    bestMove = learner.getMap().get(mapMovePair);
+        if(!isLearning) {
+            for (Move move : moves) {
+                MapMovePair mapMovePair = new MapMovePair(board.getBoard(), move);
+                if (learner.getMap().containsKey(mapMovePair)) {
+                    if (learner.getMap().get(mapMovePair) > bestMove) {
+                        moveToMake = move;
+                        bestMove = learner.getMap().get(mapMovePair);
+                    }
+                    //System.out.println("found a key!");
                 }
-                //System.out.println("found a key!");
             }
         }
 

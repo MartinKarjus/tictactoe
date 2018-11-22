@@ -21,12 +21,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Learner {
-    public static final int GAMES_TO_PLAY = 10000;
+    public static final int GAMES_TO_PLAY = 100000;
     @JsonDeserialize(keyUsing = MapDeserializer.class)
     @JsonSerialize(keyUsing = MapSerializer.class)
     private HashMap<MapMovePair, Integer> map = new HashMap<>();
     private static String LEARNER_COLOR = "black";
-    public static final String PATH = "C:\\Users\\Henry\\IdeaProjects\\tictactoeMatrin\\src\\main\\resources\\smart.json";
+    public static final String PATH = "C:\\Users\\Seesu\\IdeaProjects\\tictactoeMatrin\\src\\main\\resources\\smart.json";
 
 
     public HashMap<MapMovePair, Integer> getMap() {
@@ -70,11 +70,11 @@ public class Learner {
 //                System.out.println(map.get(movePair));
 //            }
 
-            LearnedAI learner = new LearnedAI(this);
+            LearnedAI learner = new LearnedAI(this, true);
             if(LEARNER_COLOR.equals("white")) {
-                game = new Game(learner, new MiniMax());
+                game = new Game(learner, new RandomAI());
             } else {
-                game = new Game(new MiniMax(), learner);
+                game = new Game(new RandomAI(), learner);
             }
 
             game.play(false);

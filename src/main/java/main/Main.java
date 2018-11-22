@@ -61,12 +61,12 @@ public class Main {
 
         Game game = null;
         Learner learner = new ObjectMapper().readValue(new File(Learner.PATH), Learner.class);
-        LearnedAI learnedAI =  new LearnedAI(learner);
+        LearnedAI learnedAI =  new LearnedAI(learner, false);
 
             game = new Game(new RandomAI(), learnedAI);
 
         try {
-            game.playManyTimesNoPrint(5000);
+            game.playManyTimesNoPrint(10000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
